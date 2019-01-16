@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">tba-android-beta_1.3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuració</string>
+    <string name="lists">Llistats</string>
+    <string name="report">Reportar Trolls</string>
+    <string name="academy">Bones Pràctiques</string>
+    <string name="faq">FAQ\'s</string>
+    <string name="manage">Configuració</string>
+    <string name="tools">Eines i Utilitats</string>
+    <string name="action_logout">Sortir</string>
+    <string name="cancel">cancel</string>
+    <string name="fire">fire</string>
+    <string name="dialog_fire_missiles">dialog fire missiles</string>
+    <string name="dialog_title">Troll Reportat. Gràcies!</string>
+    <string name="dialog_message">Troll Reportat. Gràcies!</string>
+    <string name="certify">Verificar Trolls</string>
+    <string name="contact">Contactan\'s</string>
+    <string name="share">Recomana aquesta App</string>
+</resources>
