@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import static java.lang.System.exit;
 
@@ -35,13 +36,19 @@ public class MainActivity extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListsFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_lists);
+        }
     }
 
     @Override
@@ -89,24 +96,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_lists) {
-            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ListsFragment()).commit();
         } else if (id == R.id.nav_report) {
-            //Start Activity or Fragment (activity won't integrate with the side navigation though)
-
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ReportFragment()).commit();
         } else if (id == R.id.nav_certify) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CertifyFragment()).commit();
         } else if (id == R.id.nav_tools) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ToolsFragment()).commit();
         } else if (id == R.id.nav_academy) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AcademyFragment()).commit();
         } else if (id == R.id.nav_faq) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FaqFragment()).commit();
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            finish();
-            exit(0);
+            Toast.makeText(this, "SHARE INTENT HERE", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_contact) {
+            Toast.makeText(this, "CONTACT DIALOG HERE", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
