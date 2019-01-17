@@ -4,17 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+import org.apache.commons.io.FilenameUtils;
+
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+
+/*import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.tweetui.TweetUtils;
+import com.twitter.sdk.android.tweetui.TweetView;*/
 
 public class HandleShareAction extends AppCompatActivity {
 
@@ -37,14 +48,43 @@ public class HandleShareAction extends AppCompatActivity {
             if ("text/plain".equals(type)) {
                 String stringURL = handleSendText(intent); // Handle text being sent
 
-                //OBTENIR TWEET ID
-                String TweetID;
+                // WE OBTAIN TWEET ID USING THE FILEUTILS LIBRARY TO GET THE FILENAME AND SPLITTING THE PARAMETERS AFTER THE FIRST "?" MARK ->
+                //
+                // https://commons.apache.org/proper/commons-io/javadocs/api-2.4/org/apache/commons/io/FilenameUtils.html
+                // https://stackoverflow.com/questions/14959763/java-remove-all-characters-after-point/14959970
 
-                //CARREGAR LAYOUT DEL TWEET A L'ACTIVITY
+                String TweetID = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
+
+                // PRINTF - REMOVE
+                setContentView(R.layout.activity_handle_share_action);
+                TextView textView = (TextView) findViewById(R.id.SharedURL);
+                textView.setText(TweetID);
+                //END PRINTF
+
+                // LOAD TWEET LAYOUT INTO THE CORRESPONDING ACTIVITY LAYOUT FRAME. WE USE THE TWEETUTILS LIBRARY TO DO SO -->
+                //
+                // https://github.com/twitter/twitter-kit-android/wiki/Show-Tweets
+
+                /*final LinearLayout myLayout
+                        = (LinearLayout) findViewById(R.id.my_tweet_layout);
+
+                final long tweetId = 510908133917487104L;
+                TweetUtils.loadTweet(tweetId, new Callback<Tweet>() {
+                    @Override
+                    public void success(Result<Tweet> result) {
+                        myLayout.addView(new TweetView(EmbeddedTweetsActivity.this, tweet));
+                    }
+
+                    @Override
+                    public void failure(TwitterException exception) {
+                        // Toast.makeText(...).show();
+                    }
+                });*/
 
                 //CARREGAR LA RESTA DEL FORMULARI
 
-                //PAS FINAL: ENVIAR MISSATGE A CLOUDAMQP
+                //PAS FINAL: ENVIAR MISSATGE A CLOUDAMQP (BOTÓ SEND A LA ACTION BAR)
+
                 SendAMQPMessage(stringURL);
             }
 
