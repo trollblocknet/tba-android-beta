@@ -7,27 +7,27 @@
         <item
             android:id="@+id/nav_lists"
             android:icon="@drawable/ic_menu_lists"
-            android:title="@string/lists" />
+            android:title="@string/nav_lists" />
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_menu_report"
-            android:title="@string/report" />
+            android:title="@string/nav_report" />
         <item
             android:id="@+id/nav_certify"
             android:icon="@drawable/ic_menu_certify"
-            android:title="@string/certify" />
+            android:title="@string/nav_certify" />
         <item
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_tools"
-            android:title="@string/tools" />
+            android:title="@string/nav_tools" />
         <item
             android:id="@+id/nav_academy"
             android:icon="@drawable/ic_menu_academy"
-            android:title="@string/academy" />
+            android:title="@string/nav_academy" />
         <item
             android:id="@+id/nav_faq"
             android:icon="@drawable/ic_menu_faq"
-            android:title="@string/faq" />
+            android:title="@string/nav_faq" />
 
     </group>
 
@@ -36,11 +36,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/share" />
+                android:title="@string/nav_share" />
             <item
                 android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_menu_contact"
-                android:title="@string/contact" />
+                android:title="@string/nav_contact" />
         </menu>
     </item>
 
