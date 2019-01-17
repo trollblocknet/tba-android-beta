@@ -35,31 +35,36 @@ public class HandleShareAction extends AppCompatActivity {
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
-                handleSendText(intent); // Handle text being sent
+                String stringURL = handleSendText(intent); // Handle text being sent
+
+                //OBTENIR TWEET ID
+                String TweetID;
+
+                //CARREGAR LAYOUT DEL TWEET A L'ACTIVITY
+
+                //CARREGAR LA RESTA DEL FORMULARI
+
+                //PAS FINAL: ENVIAR MISSATGE A CLOUDAMQP
+                SendAMQPMessage(stringURL);
             }
 
         }  else {
-            // Handle other intents, such as being started from the home screen
+            // TOAST / DIALOG - L'OBJECTE COMPARTIT NO CORRESPON A UN TWEET
         }
 
     }
 
     // SEND MESSAGE (URL) TO THE RABBITMQ AMQP QUEUE
 
-    void handleSendText(Intent intent) {
+    String handleSendText(Intent intent) {
         String sharedURL = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedURL != null) {
             // Update UI to reflect text being shared
             setContentView(R.layout.activity_handle_share_action);
             TextView textView = (TextView) findViewById(R.id.SharedURL);
             textView.setText(sharedURL);
-
-            // Send message to the amqp queue in order to be processed by the agents
-
-            setupConnectionFactory();
-            publishToAMQP(); // Initiates a thread that waits for data in the local queue (BlockingQueue)
-            publishMessage(sharedURL); // Enqueue message in local queue (it will be automatically re-routed to the rabbitMQ queue
-        }
+           }
+        return sharedURL;
     }
 
     Thread publishThread;
@@ -129,5 +134,12 @@ public class HandleShareAction extends AppCompatActivity {
             }
         });
         publishThread.start();
+    }
+
+    private void SendAMQPMessage(String sharedURL) {
+        setupConnectionFactory();
+        publishToAMQP(); // Initiates a thread that waits for data in the local queue (BlockingQueue)
+        publishMessage(sharedURL); // Enqueue message in local queue (it will be automatically re-routed to the rabbitMQ queue
+
     }
 }
