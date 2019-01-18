@@ -6,11 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".HandleShareAction">
 
-    <TextView
-        android:id="@+id/SharedURL"
+    <RelativeLayout
+
+        android:id="@+id/tweet_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Shared URL"
-        tools:text="Shared URL..." />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

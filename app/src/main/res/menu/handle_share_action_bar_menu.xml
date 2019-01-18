@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/TopBarSendButton"
+        android:title=""
+        app:showAsAction="always"
+        android:icon="@drawable/top_bar_send_button"
+        />
+</menu>
