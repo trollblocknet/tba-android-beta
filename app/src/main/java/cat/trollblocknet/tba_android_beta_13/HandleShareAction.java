@@ -62,6 +62,7 @@ public class HandleShareAction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handle_share_action);
+        getSupportActionBar().setTitle("Reportar Troll");
 
         //HANDLE SHARE ACTION
 
@@ -166,6 +167,8 @@ public class HandleShareAction extends AppCompatActivity {
 
     ConnectionFactory factory = new ConnectionFactory();
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.handle_share_action_bar_menu, menu);
@@ -183,6 +186,8 @@ public class HandleShareAction extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private void setupConnectionFactory() {
         String uri = CLOUDAMQP_URL;
@@ -260,5 +265,7 @@ public class HandleShareAction extends AppCompatActivity {
             }
         }).start();
     }
-    
+
+
+
 }
