@@ -62,7 +62,11 @@ public class HandleShareAction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handle_share_action);
-        getSupportActionBar().setTitle("Reportar Troll");
+
+        //Config action-bar
+        this.getSupportActionBar().setTitle("Reportar Perfil");
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
         //HANDLE SHARE ACTION
 
@@ -187,7 +191,12 @@ public class HandleShareAction extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // close this activity as oppose to navigating up
 
+        return false;
+    }
 
     private void setupConnectionFactory() {
         String uri = CLOUDAMQP_URL;
