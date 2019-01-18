@@ -84,7 +84,6 @@ public class HandleShareAction extends AppCompatActivity {
         }  else {
             // TOAST / DIALOG - L'OBJECTE COMPARTIT NO CORRESPON A UN STRING
             finish();
-            exit(0);
         }
 
         // RENDER TWEET
@@ -187,14 +186,18 @@ public class HandleShareAction extends AppCompatActivity {
         if (id == R.id.TopBarSendButton) {
             //send cluodamqp message and return to parent activity / external app
             SendAMQPMessage(stringURL);
+            Toast.makeText(this, "@string/toast_handle_share_success", Toast.LENGTH_SHORT).show();
+            //exit(0);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish(); // close this activity as oppose to navigating up
-
+        //finish();
+        // close this activity as oppose to navigating up
+        exit(0);
         return false;
     }
 

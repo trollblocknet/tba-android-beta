@@ -19,7 +19,7 @@
     <string name="dialog_report_success_message">Troll Reportat. Gràcies!</string>
     <string name="fragment_report_pas1">1. Indica un Tweet del perfil que vulguis reportar:</string>
     <string name="fragment_report_pas2">2. Proposa una llista:</string>
-    <string name="fragment_report_pas3">3. Insereix un comentari (Opcional):</string>
+    <string name="fragment_report_pas3">3. (Opcional) Afegeix fins a 5 etiquetes que descriguin amb una mica més de detall el motiu pel qual reportes aquest perfil (i.e:  #Infiltrada, #TrollUnionista, #Feixista, #Masclista, #Homofòbia, #Catalanofòbia) :</string>
     <string name="fragment_report_bullet1_trolls">Trolls / Infiltrats</string>
     <string name="fragment_report_bullet2_xusma">Persones non-grates</string>
     <string name="fragment_report_bullet3_ibex">Col·laboradors IBEX-35</string>
