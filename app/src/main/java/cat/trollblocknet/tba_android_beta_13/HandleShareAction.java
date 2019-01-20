@@ -3,14 +3,22 @@ package cat.trollblocknet.tba_android_beta_13;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +51,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+
+
 
 import static java.lang.System.exit;
 
@@ -58,31 +71,39 @@ public class HandleShareAction extends AppCompatActivity {
     private String stringURL;
     private String TweetId;
 
+    private RadioGroup rg;
+    private RadioButton rb;
+
+    private TextInputEditText mEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_handle_share_action);
 
-        //Config action-bar
-        this.getSupportActionBar().setTitle("Reportar Perfil");
+        //INFLATE ACTION BAR
+        this.getSupportActionBar().setTitle("Reportar Troll");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
-        //HANDLE SHARE ACTION
+        //INFLATE COMMENTS INPUT
+        //mEdit   = (TextInputEditText)findViewById(R.id.handle_share_comments);
+
+        //HANDLE SHARE ACTION (GET DATA)
 
         // Get intent, action and MIME type
-
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
 
-                stringURL = handleSendText(intent); // Handle text being sent
-                TweetId = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
+            stringURL = handleSendText(intent); // Handle text being sent
+               TweetId = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
 
         }  else {
-            // TOAST / DIALOG - L'OBJECTE COMPARTIT NO CORRESPON A UN STRING
+            // TO-DO: TOAST - L'OBJECTE COMPARTIT NO CORRESPON A UN STRING
             finish();
         }
 
@@ -100,7 +121,7 @@ public class HandleShareAction extends AppCompatActivity {
                 .build();
         Twitter.initialize(config);
 
-        // INITIALIZE CONFIG
+        // INITIALIZE TW CONFIG
 
         new Thread(new Runnable() {
             @Override
@@ -123,7 +144,7 @@ public class HandleShareAction extends AppCompatActivity {
 
             @Override
             public void failure(TwitterException exception) {
-                // Toast.makeText(...).show();
+                // TO-DO: Toast.makeText(...).show();
             }
         });
 
@@ -170,8 +191,6 @@ public class HandleShareAction extends AppCompatActivity {
 
     ConnectionFactory factory = new ConnectionFactory();
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.handle_share_action_bar_menu, menu);
@@ -184,14 +203,36 @@ public class HandleShareAction extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.TopBarSendButton) {
+            //Retrieve selected option from bullet button group
+            //int selectedId = this.getRadioGroupOption();
+            int selectedId = 1;
+
+             //Retrieve Comments
+            //String comments = this.getComments();
+            String comments = "NULL";
+
+            //Create final message string
+            StringBuilder amqpMessage = new StringBuilder();
+            amqpMessage.append(TweetId)
+                    .append(";")
+                    .append(String.valueOf(selectedId))
+                    .append(";")
+                    .append(comments);
+
             //send cluodamqp message and return to parent activity / external app
-            SendAMQPMessage(stringURL);
-            Toast.makeText(this, "@string/toast_handle_share_success", Toast.LENGTH_SHORT).show();
-            //exit(0);
+            SendAMQPMessage(amqpMessage.toString());
+
+            //TO-DO: IF NO CONNECTION, STORE IN LOCAL FILE AND SEND IN DURING NEXT AMQP SESSION IN THERE IS CONN.
+
+            //Toast.makeText(this, "Perfil reportat correctament", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, amqpMessage.toString(), Toast.LENGTH_SHORT).show();
+
+            //Close the activity and return to twitter
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -278,6 +319,21 @@ public class HandleShareAction extends AppCompatActivity {
         }).start();
     }
 
+    public int getRadioGroupOption() {
 
+        //Inflate Radio Group
+        rg = (RadioGroup) findViewById(R.id.radioGroup);
 
+        // get selected radio button from radioGroup
+        int selectedId = rg.getCheckedRadioButtonId();
+
+        // find the radiobutton by returned id
+        rb = (RadioButton) findViewById(selectedId);
+
+        return rb.getId();
+    }
+
+    public String getComments(){
+        return mEdit.getText().toString();
+    }
 }

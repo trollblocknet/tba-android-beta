@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">tba-android-beta_1.3</string>
+    <string name="app_name">#TrollBlockNet App</string>
     <string name="action_logout">Sortir</string>
     <string name="action_settings">Configuració</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -23,4 +23,7 @@
     <string name="fragment_report_bullet1_trolls">Trolls / Infiltrats</string>
     <string name="fragment_report_bullet2_xusma">Persones non-grates</string>
     <string name="fragment_report_bullet3_ibex">Col·laboradors IBEX-35</string>
+    <string name="list_option1">Trolls i Infiltrats</string>
+    <string name="list_option2">Persones \"non-gratae\"</string>
+    <string name="list_option3">Col·laboradors IBEX-35</string>
 </resources>
