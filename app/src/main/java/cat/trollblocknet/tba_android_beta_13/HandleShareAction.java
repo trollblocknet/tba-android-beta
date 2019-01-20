@@ -28,6 +28,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+import com.rabbitmq.client.MessageProperties;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
@@ -208,7 +209,7 @@ public class HandleShareAction extends AppCompatActivity {
 
         if (id == R.id.TopBarSendButton) {
             //Retrieve selected option from bullet button group
-            int selectedId = this.getRadioGroupOption();
+            String selectedOption = this.getRadioGroupOption();
             //int selectedId = 1;
 
              //Retrieve Comments
@@ -219,7 +220,7 @@ public class HandleShareAction extends AppCompatActivity {
             StringBuilder amqpMessage = new StringBuilder();
             amqpMessage.append(TweetId)
                     .append(";")
-                    .append(String.valueOf(selectedId))
+                    .append(String.valueOf(selectedOption))
                     .append(";")
                     .append(comments);
 
@@ -269,8 +270,13 @@ public class HandleShareAction extends AppCompatActivity {
                         while (true) {
                             String message = queue.takeFirst();
                             try{
-                                ch.basicPublish("amq.fanout", "chat", null, message.getBytes());
+                                ch.basicPublish(
+                                        "amq.fanout",
+                                        "message",
+                                        MessageProperties.PERSISTENT_TEXT_PLAIN,
+                                        message.getBytes());
                                 Log.d("", "[s] " + message);
+
                                 ch.waitForConfirmsOrDie();
                             } catch (Exception e){
                                 Log.d("","[f] " + message);
@@ -323,7 +329,7 @@ public class HandleShareAction extends AppCompatActivity {
         }).start();
     }
 
-    public int getRadioGroupOption() {
+    public String getRadioGroupOption() {
 
             // get selected radio button from radioGroup
         int selectedId = rg.getCheckedRadioButtonId();
@@ -331,7 +337,7 @@ public class HandleShareAction extends AppCompatActivity {
         // find the radiobutton by returned id
         rb = (RadioButton) findViewById(selectedId);
 
-        return rb.getId();
+        return rb.getText().toString();
     }
 
     public String getComments(){
