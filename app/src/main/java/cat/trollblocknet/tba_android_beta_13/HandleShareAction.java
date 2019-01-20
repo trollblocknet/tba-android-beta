@@ -88,6 +88,9 @@ public class HandleShareAction extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
+        //INFLATE RADIO GROUP
+        rg = (RadioGroup) findViewById(R.id.handle_share_radio_group);
+
         //INFLATE COMMENTS INPUT
         mEdit   = (EditText) findViewById(R.id.handle_share_comments);
 
@@ -205,8 +208,8 @@ public class HandleShareAction extends AppCompatActivity {
 
         if (id == R.id.TopBarSendButton) {
             //Retrieve selected option from bullet button group
-            //int selectedId = this.getRadioGroupOption();
-            int selectedId = 1;
+            int selectedId = this.getRadioGroupOption();
+            //int selectedId = 1;
 
              //Retrieve Comments
             String comments = this.getComments();
@@ -322,10 +325,7 @@ public class HandleShareAction extends AppCompatActivity {
 
     public int getRadioGroupOption() {
 
-        //Inflate Radio Group
-        rg = (RadioGroup) findViewById(R.id.radioGroup);
-
-        // get selected radio button from radioGroup
+            // get selected radio button from radioGroup
         int selectedId = rg.getCheckedRadioButtonId();
 
         // find the radiobutton by returned id
