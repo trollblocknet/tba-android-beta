@@ -218,7 +218,9 @@ public class HandleShareAction extends AppCompatActivity {
 
             //Create final message string
             StringBuilder amqpMessage = new StringBuilder();
-            amqpMessage.append(TweetId)
+            amqpMessage.append("tw_userID")
+                    .append(";")
+                    .append(TweetId)
                     .append(";")
                     .append(String.valueOf(selectedOption))
                     .append(";")
