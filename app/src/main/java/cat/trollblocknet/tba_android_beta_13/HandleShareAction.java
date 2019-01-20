@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
@@ -74,7 +75,7 @@ public class HandleShareAction extends AppCompatActivity {
     private RadioGroup rg;
     private RadioButton rb;
 
-    private TextInputEditText mEdit;
+    private EditText mEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class HandleShareAction extends AppCompatActivity {
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
         //INFLATE COMMENTS INPUT
-        //mEdit   = (TextInputEditText)findViewById(R.id.handle_share_comments);
+        mEdit   = (EditText) findViewById(R.id.handle_share_comments);
 
         //HANDLE SHARE ACTION (GET DATA)
 
@@ -208,8 +209,8 @@ public class HandleShareAction extends AppCompatActivity {
             int selectedId = 1;
 
              //Retrieve Comments
-            //String comments = this.getComments();
-            String comments = "NULL";
+            String comments = this.getComments();
+            //String comments = "NULL";
 
             //Create final message string
             StringBuilder amqpMessage = new StringBuilder();
