@@ -36,6 +36,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.internal.TwitterApi;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.tweetui.BaseTweetView;
 import com.twitter.sdk.android.tweetui.CompactTweetView;
@@ -48,6 +49,10 @@ import com.twitter.sdk.android.tweetui.internal.TweetMediaView;
 
 import org.apache.commons.io.FilenameUtils;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -152,7 +157,6 @@ public class HandleShareAction extends AppCompatActivity {
                 // TO-DO: Toast.makeText(...).show();
             }
         });
-
     }
 
     String handleSendText(Intent intent) {
@@ -218,9 +222,7 @@ public class HandleShareAction extends AppCompatActivity {
 
             //Create final message string
             StringBuilder amqpMessage = new StringBuilder();
-            amqpMessage.append("tw_userID")
-                    .append(";")
-                    .append(TweetId)
+            amqpMessage.append(TweetId)
                     .append(";")
                     .append(String.valueOf(selectedOption))
                     .append(";")
