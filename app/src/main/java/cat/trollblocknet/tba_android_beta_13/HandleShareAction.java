@@ -32,6 +32,7 @@ import com.rabbitmq.client.MessageProperties;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterApiException;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
@@ -53,7 +54,9 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.KeyManagementException;
@@ -82,6 +85,7 @@ public class HandleShareAction extends AppCompatActivity {
     private RadioButton rb;
 
     private EditText mEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +133,7 @@ public class HandleShareAction extends AppCompatActivity {
                 .twitterAuthConfig(authConfig)
                 .debug(true)
                 .build();
+
         Twitter.initialize(config);
 
         // INITIALIZE TW CONFIG
@@ -136,6 +141,8 @@ public class HandleShareAction extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
                 TweetUi.getInstance();
                 Log.i("ReactTwitterKit", "TweetUi instance initialized");
             }
@@ -144,6 +151,8 @@ public class HandleShareAction extends AppCompatActivity {
         // INFLATE TWEET
 
         TweetUtils.loadTweet(Long.valueOf(TweetId), new Callback<Tweet>() {
+
+            boolean NetIsConnected = true;
 
             @Override
             public void success(Result<Tweet> result) {
@@ -154,10 +163,15 @@ public class HandleShareAction extends AppCompatActivity {
 
             @Override
             public void failure(TwitterException exception) {
-                // TO-DO: Toast.makeText(...).show();
+                //IF TWEET CANNOT BE RENDERED MEANS THAT THERE IS NO CONNECTION, SO WE TOAST IT AND EXIT THE ACTIVITY
+                Toast.makeText(HandleShareAction.this, "@string/no_connection", Toast.LENGTH_SHORT).show();
+                finish(); // THIS THROWS AN EXCEPTION, TRY TO EXIT FROM THE "ONCREATE" METHOD INSTEAD
+
             }
         });
     }
+
+    //RETRIEVE DATA FROM SHARE INTENT (TWITTER APP)
 
     String handleSendText(Intent intent) {
         String sharedURL = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -347,4 +361,6 @@ public class HandleShareAction extends AppCompatActivity {
     public String getComments(){
         return mEdit.getText().toString();
     }
+
+
 }

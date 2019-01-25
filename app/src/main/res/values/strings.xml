@@ -14,7 +14,7 @@
     <string name="nav_faq">FAQ\'s</string>
     <string name="nav_tools">Eines i Utilitats</string>
     <string name="nav_share">Recomana aquesta App</string>
-    <string name="nav_contact">Contactan\'s</string>
+    <string name="nav_contact">Contacta-n\'s</string>
     <string name="dialog_report_success_title">Troll Reportat. Gràcies!</string>
     <string name="dialog_report_success_message">Troll Reportat. Gràcies!</string>
     <string name="fragment_report_pas1">1. Indica un Tweet del perfil que vulguis reportar:</string>
@@ -26,4 +26,6 @@
     <string name="list_option1">Trolls i Infiltrats</string>
     <string name="list_option2">Persones \"non-gratae\"</string>
     <string name="list_option3">Col·laboradors IBEX-35</string>
+    <string name="lists_fragment_title">Subscipció a les llistes de bloqueigs automàtics</string>
+    <string name="nav_alertes">Alertes</string>
 </resources>
