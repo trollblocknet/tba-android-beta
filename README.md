@@ -25,7 +25,7 @@ GOALS for V 1.0 (only reporting activity and informative sections)
 BUGS
 -----------------------------
 
-### #1.3-1 ###
+### #1.3-01 ###
 
 HandleShareAction.java --> Action crashes when no connection is detected (cannot render tweet). Try to exit from "oncreate" method instead of the TweetUtils.loadTweet() method 
 
@@ -63,11 +63,11 @@ HandleShareAction.java --> Action crashes when no connection is detected (cannot
         at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1120) 
 ```
 
-### #1.3-2 ###
+### #1.3-02 ###
 
 HandleShareAction.java --> AMQP Connection keeps open after sending message to queue. Since there is a limitation of 20 cons, it's a must to close cons after sending, and reduce overhead to max so the operation performs fast. 
 
-### #1.3-3 ###
+### #1.3-03 ###
 
 HandleShareAction.java --> Error rendering tweets (activity closed / error dialog triggered) when sharing tweets that have been banned by the twitter ops, such as: @BlanchJofre's account is temporarily unavailable because it violates the Twitter Media Policy
 
