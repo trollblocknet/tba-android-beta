@@ -29,6 +29,8 @@ BUGS
 
 HandleShareAction.java --> Action crashes when no connection is detected (cannot render tweet). Try to exit from "oncreate" method instead of the TweetUtils.loadTweet() method 
 
+**Error Log**
+
 ```
 01-26 21:16:19.347 15858-15858/cat.trollblocknet.tba_android_beta_12 E/Twitter: Failed to get app auth token
 01-26 21:16:19.367 15858-15858/cat.trollblocknet.tba_android_beta_12 E/TweetUi: Request Failure
