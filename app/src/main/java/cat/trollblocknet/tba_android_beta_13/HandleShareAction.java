@@ -32,6 +32,7 @@ import com.rabbitmq.client.MessageProperties;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterApiException;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
@@ -51,6 +52,7 @@ import com.twitter.sdk.android.tweetui.internal.TweetMediaView;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.BufferedInputStream;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -72,106 +74,107 @@ import java.util.concurrent.LinkedBlockingDeque;
 import static java.lang.System.exit;
 
 
-public class HandleShareAction extends AppCompatActivity {
+    public class HandleShareAction extends AppCompatActivity {
 
-    private static final String CLOUDAMQP_URL = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
-    private static final String tw_consumerKey = "UnFTQTeTx2tm98zQwG1jLhL3g";
-    private static final String tw_consumerSecret = "HAR8c3Rpjo7ZEQzgAHPLY4lGb7XtjSwa1gfLd3SirjJOX12GUa";
+        private static final String CLOUDAMQP_URL = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
+        private static final String tw_consumerKey = "UnFTQTeTx2tm98zQwG1jLhL3g";
+        private static final String tw_consumerSecret = "HAR8c3Rpjo7ZEQzgAHPLY4lGb7XtjSwa1gfLd3SirjJOX12GUa";
 
-    private String stringURL;
-    private String TweetId;
+        private String stringURL;
+        private String TweetId;
 
-    private RadioGroup rg;
-    private RadioButton rb;
+        private RadioGroup rg;
+        private RadioButton rb;
 
-    private EditText mEdit;
+        private EditText mEdit;
+
+        private boolean noConnection  = false;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            setContentView(R.layout.activity_handle_share_action);
+
+            //INFLATE ACTION BAR
+            this.getSupportActionBar().setTitle(R.string.error_handle_share_action_title);
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
+
+            //INFLATE RADIO GROUP
+            rg = (RadioGroup) findViewById(R.id.handle_share_radio_group);
+
+            //INFLATE COMMENTS INPUT
+            mEdit   = (EditText) findViewById(R.id.handle_share_comments);
+
+            //HANDLE SHARE ACTION (GET DATA)
+
+            // Get intent, action and MIME type
+            Intent intent = getIntent();
+            String action = intent.getAction();
+            String type = intent.getType();
+
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+
+                stringURL = handleSendText(intent); // Handle text being sent
+                TweetId = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            }  else {
+                // TO-DO: TOAST - L'OBJECTE COMPARTIT NO CORRESPON A UN STRING
+                finish();
+            }
 
-        setContentView(R.layout.activity_handle_share_action);
+            // RENDER TWEET
 
-        //INFLATE ACTION BAR
-        this.getSupportActionBar().setTitle("Reportar Troll");
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
-
-        //INFLATE RADIO GROUP
-        rg = (RadioGroup) findViewById(R.id.handle_share_radio_group);
-
-        //INFLATE COMMENTS INPUT
-        mEdit   = (EditText) findViewById(R.id.handle_share_comments);
-
-        //HANDLE SHARE ACTION (GET DATA)
-
-        // Get intent, action and MIME type
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        String type = intent.getType();
-
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
-
-            stringURL = handleSendText(intent); // Handle text being sent
-            TweetId = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
+            final RelativeLayout myLayout
+                    = (RelativeLayout) findViewById(R.id.tweet_layout);
 
 
-        }  else {
-            // TO-DO: TOAST - L'OBJECTE COMPARTIT NO CORRESPON A UN STRING
-            finish();
+
+            TwitterAuthConfig authConfig;
+            authConfig = new TwitterAuthConfig(tw_consumerKey, tw_consumerSecret);
+
+
+            final TwitterConfig config = new TwitterConfig.Builder(this)
+                    .twitterAuthConfig(authConfig)
+                    .debug(true)
+                    .build();
+
+            Twitter.initialize(config);
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+
+                    TweetUi.getInstance();
+                    Log.i("ReactTwitterKit", "TweetUi instance initialized");
+                }
+            }).start();
+
+             // INITIALIZE TW CONFIG
+
+            // INFLATE TWEET
+
+            TweetUtils.loadTweet(Long.valueOf(TweetId), new Callback<Tweet>() {
+
+                @Override
+                public void success(Result<Tweet> result) {
+
+                    //myLayout.setClickable(false);
+                    myLayout.addView(new CompactTweetView(HandleShareAction.this, result.data));
+                }
+
+                @Override
+                public void failure(TwitterException exception) {
+                    //IF TWEET CANNOT BE RENDERED MEANS THAT THERE IS NO CONNECTION
+                    noConnection = true;
+                }
+            });
+
         }
-
-        // RENDER TWEET
-
-        final RelativeLayout myLayout
-                = (RelativeLayout) findViewById(R.id.tweet_layout);
-
-        TwitterAuthConfig authConfig
-                = new TwitterAuthConfig(tw_consumerKey, tw_consumerSecret);
-
-        final TwitterConfig config = new TwitterConfig.Builder(this)
-                .twitterAuthConfig(authConfig)
-                .debug(true)
-                .build();
-
-        // INITIALIZE TW CONFIG
-
-        Twitter.initialize(config);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-                TweetUi.getInstance();
-                Log.i("ReactTwitterKit", "TweetUi instance initialized");
-            }
-        }).start();
-
-
-
-        // INFLATE TWEET
-
-        TweetUtils.loadTweet(Long.valueOf(TweetId), new Callback<Tweet>() {
-
-            @Override
-            public void success(Result<Tweet> result) {
-
-                //myLayout.setClickable(false);
-                myLayout.addView(new CompactTweetView(HandleShareAction.this, result.data));
-            }
-
-            @Override
-            public void failure(TwitterException exception) {
-                //IF TWEET CANNOT BE RENDERED MEANS THAT THERE IS NO CONNECTION, SO WE TOAST IT AND EXIT THE ACTIVITY
-                Toast.makeText(HandleShareAction.this, "@string/no_connection", Toast.LENGTH_LONG).show();
-                finish(); // THIS THROWS AN EXCEPTION, TRY TO EXIT FROM THE "ONCREATE" METHOD INSTEAD
-
-            }
-        });
-
-    }
 
     //RETRIEVE DATA FROM SHARE INTENT (TWITTER APP)
 
@@ -247,17 +250,20 @@ public class HandleShareAction extends AppCompatActivity {
             //send cluodamqp message and return to parent activity / external app
             SendAMQPMessage(amqpMessage.toString());
 
-            //TO-DO: IF NO CONNECTION, STORE IN LOCAL FILE AND SEND IN DURING NEXT AMQP SESSION IN THERE IS CONN.
-
-            //Toast.makeText(this, "Perfil reportat correctament", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, amqpMessage.toString(), Toast.LENGTH_SHORT).show();
+            //TO-DO: IF NO CONNECTION, STORE LOCAL QUEUE IN A FILE, THEN PUSH IT AGAIN TO THE LOCAL QUEUE AND SEND IN DURING NEXT AMQP SESSION
+            if (noConnection){
+                Toast.makeText(this,getString(R.string.error_handle_share_action_no_connection), Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, getString(R.string.error_handle_share_action_success), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, amqpMessage.toString(), Toast.LENGTH_SHORT).show();
+            }
 
             //Close the activity and return to twitter
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -363,6 +369,4 @@ public class HandleShareAction extends AppCompatActivity {
     public String getComments(){
         return mEdit.getText().toString();
     }
-
-
 }

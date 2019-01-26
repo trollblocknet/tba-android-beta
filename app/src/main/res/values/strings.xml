@@ -23,10 +23,9 @@
     <string name="fragment_report_bullet1_trolls">Trolls i/o infiltrats</string>
     <string name="fragment_report_bullet2_xusma">Col·laboradors amb el règim 78</string>
     <string name="fragment_report_bullet3_ibex">Empreses de l\'IBEX-35</string>
-    <string name="list_option1">Trolls i Infiltrats</string>
-    <string name="list_option2">Persones \"non-gratae\"</string>
-    <string name="list_option3">Col·laboradors IBEX-35</string>
     <string name="lists_fragment_title">Subscipció a les llistes de bloqueigs automàtics</string>
     <string name="nav_alerts">Alertes</string>
-    <string name="error_handle_share_action_no_connection">No s\'han pogut carregar les dades del tweet, comprova la teva connexió a Internet i que el tweet no hagi sigut eliminat.</string>
+    <string name="error_handle_share_action_no_connection">No s\'ha pogut reportar el tweet. Comprova la teva connexió a Internet i que el tweet no hagi sigut eliminat.</string>
+    <string name="error_handle_share_action_success">Perfil reportat correctament</string>
+    <string name="error_handle_share_action_title">Reportar Troll</string>
 </resources>

@@ -57,21 +57,21 @@
             android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/list_option1"
+            android:text="@string/fragment_report_bullet1_trolls"
             android:textSize="18dp" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/list_option2"
+            android:text="@string/fragment_report_bullet2_xusma"
             android:textSize="18dp" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/list_option3"
+            android:text="@string/fragment_report_bullet3_ibex"
             android:textSize="18dp" />
 
     </RadioGroup>
