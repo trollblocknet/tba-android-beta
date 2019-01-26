@@ -20,12 +20,13 @@
     <string name="fragment_report_pas1">1. Indica un Tweet del perfil que vulguis reportar:</string>
     <string name="fragment_report_pas2">2. Proposa una llista:</string>
     <string name="fragment_report_pas3">3. (Opcional) Afegeix fins a 5 etiquetes que descriguin amb una mica més de detall el motiu pel qual reportes aquest perfil (i.e:  #Infiltrada, #TrollUnionista, #Feixista, #Masclista, #Homofòbia, #Catalanofòbia) :</string>
-    <string name="fragment_report_bullet1_trolls">Trolls / Infiltrats</string>
-    <string name="fragment_report_bullet2_xusma">Persones non-grates</string>
-    <string name="fragment_report_bullet3_ibex">Col·laboradors IBEX-35</string>
+    <string name="fragment_report_bullet1_trolls">Trolls i/o infiltrats</string>
+    <string name="fragment_report_bullet2_xusma">Col·laboradors amb el règim 78</string>
+    <string name="fragment_report_bullet3_ibex">Empreses de l\'IBEX-35</string>
     <string name="list_option1">Trolls i Infiltrats</string>
     <string name="list_option2">Persones \"non-gratae\"</string>
     <string name="list_option3">Col·laboradors IBEX-35</string>
     <string name="lists_fragment_title">Subscipció a les llistes de bloqueigs automàtics</string>
-    <string name="nav_alertes">Alertes</string>
+    <string name="nav_alerts">Alertes</string>
+    <string name="error_handle_share_action_no_connection">No s\'han pogut carregar les dades del tweet, comprova la teva connexió a Internet i que el tweet no hagi sigut eliminat.</string>
 </resources>

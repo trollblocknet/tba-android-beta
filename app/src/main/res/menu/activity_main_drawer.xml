@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_alertes"
             android:icon="@drawable/ic_menu_report"
-            android:title="@string/nav_alertes" />
+            android:title="@string/nav_alerts" />
         <item
             android:id="@+id/nav_lists"
             android:icon="@drawable/ic_menu_lists"

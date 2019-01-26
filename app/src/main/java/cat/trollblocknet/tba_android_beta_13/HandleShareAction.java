@@ -114,7 +114,8 @@ public class HandleShareAction extends AppCompatActivity {
         if (Intent.ACTION_SEND.equals(action) && type != null) {
 
             stringURL = handleSendText(intent); // Handle text being sent
-               TweetId = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
+            TweetId = FilenameUtils.getBaseName(stringURL).split("\\?", 2)[0];
+
 
         }  else {
             // TO-DO: TOAST - L'OBJECTE COMPARTIT NO CORRESPON A UN STRING
@@ -134,9 +135,9 @@ public class HandleShareAction extends AppCompatActivity {
                 .debug(true)
                 .build();
 
-        Twitter.initialize(config);
-
         // INITIALIZE TW CONFIG
+
+        Twitter.initialize(config);
 
         new Thread(new Runnable() {
             @Override
@@ -148,11 +149,11 @@ public class HandleShareAction extends AppCompatActivity {
             }
         }).start();
 
+
+
         // INFLATE TWEET
 
         TweetUtils.loadTweet(Long.valueOf(TweetId), new Callback<Tweet>() {
-
-            boolean NetIsConnected = true;
 
             @Override
             public void success(Result<Tweet> result) {
@@ -164,11 +165,12 @@ public class HandleShareAction extends AppCompatActivity {
             @Override
             public void failure(TwitterException exception) {
                 //IF TWEET CANNOT BE RENDERED MEANS THAT THERE IS NO CONNECTION, SO WE TOAST IT AND EXIT THE ACTIVITY
-                Toast.makeText(HandleShareAction.this, "@string/no_connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HandleShareAction.this, "@string/no_connection", Toast.LENGTH_LONG).show();
                 finish(); // THIS THROWS AN EXCEPTION, TRY TO EXIT FROM THE "ONCREATE" METHOD INSTEAD
 
             }
         });
+
     }
 
     //RETRIEVE DATA FROM SHARE INTENT (TWITTER APP)
