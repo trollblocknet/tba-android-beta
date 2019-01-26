@@ -29,7 +29,7 @@ BUGS
 
 HandleShareAction.java --> Action crashes when no connection is detected (cannot render tweet). Try to exit from "oncreate" method instead of the TweetUtils.loadTweet() method 
 
-`
+```
 01-26 21:16:19.347 15858-15858/cat.trollblocknet.tba_android_beta_12 E/Twitter: Failed to get app auth token
 01-26 21:16:19.367 15858-15858/cat.trollblocknet.tba_android_beta_12 E/TweetUi: Request Failure
 01-26 21:16:20.097 15858-15858/cat.trollblocknet.tba_android_beta_12 E/AndroidRuntime: FATAL EXCEPTION: main
@@ -59,11 +59,13 @@ HandleShareAction.java --> Action crashes when no connection is detected (cannot
         at java.lang.reflect.Method.invoke(Native Method) 
         at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1230) 
         at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1120) 
-`
+```
 
+### #1.3-2 ###
 
+HandleShareAction.java --> AMQP Connection keeps open after sending message to queue. Since there is a limitation of 20 cons, it's a must to close cons after sending, and reduce overhead to max so the operation performs fast. 
 
-#1.3-2 -> HandleShareAction.java --> AMQP Connection keeps open after sending message to queue. Since there is a limitation of 20 cons, it's a must to close cons after sending, and reduce overhead to max so the operation performs fast. 
+### #1.3-3 ###
 
-#1.3-3 -> HandleShareAction.java --> Error rendering tweets (activity closed / error dialog triggered) when sharing tweets that have been banned by the twitter ops, such as: @BlanchJofre's account is temporarily unavailable because it violates the Twitter Media Policy
+HandleShareAction.java --> Error rendering tweets (activity closed / error dialog triggered) when sharing tweets that have been banned by the twitter ops, such as: @BlanchJofre's account is temporarily unavailable because it violates the Twitter Media Policy
 
