@@ -71,3 +71,7 @@ HandleShareAction.java --> AMQP Connection keeps open after sending message to q
 
 HandleShareAction.java --> Error rendering tweets (activity closed / error dialog triggered) when sharing tweets that have been banned by the twitter ops, such as: @BlanchJofre's account is temporarily unavailable because it violates the Twitter Media Policy
 
+GOALS for V 2.0 (blockchain dapp version)
+===============================================================================
+
+In the distributed version of the app, in order to be able to report, the users needs to earn "trollcoins" by validating blockchain blocks (ledger page of reported trolls). IF the verification is successful (block is added to the chain) the user can start reporting trolls and gets a few days of real-time sync with the block-lists lists by using the earned trollcoins. It is a p2p colaboartive app: if you colaborate you earn access to the premium features. If you don't, you can only get access to download the csv's, alerts, etc. Moreover, if infiltrated trolls (After earning some trollcoins) get to continously report "false-positive" profiles and these don't get validated, they earn bad reputation and became "fined" (unable to earn trollcoins for x^y days, exponentially every time they "got caught". This also solves the problem of report spamming through the app.  
