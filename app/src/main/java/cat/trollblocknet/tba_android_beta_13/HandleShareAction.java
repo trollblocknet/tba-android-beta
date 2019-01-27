@@ -88,7 +88,9 @@ import static java.lang.System.exit;
 
         private EditText mEdit;
 
+        private Long tw_userID;
         private boolean noConnection  = false;
+        private String tw;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -162,17 +164,19 @@ import static java.lang.System.exit;
 
                 @Override
                 public void success(Result<Tweet> result) {
-
                     //myLayout.setClickable(false);
                     myLayout.addView(new CompactTweetView(HandleShareAction.this, result.data));
+                    tw_userID = result.data.user.getId();
                 }
 
                 @Override
                 public void failure(TwitterException exception) {
                     //IF TWEET CANNOT BE RENDERED MEANS THAT THERE IS NO CONNECTION
+                    Toast.makeText(HandleShareAction.this, "No s'ha pogut carregar el tweet.", Toast.LENGTH_SHORT).show();
                     noConnection = true;
                 }
             });
+
 
         }
 
@@ -233,15 +237,15 @@ import static java.lang.System.exit;
         if (id == R.id.TopBarSendButton) {
             //Retrieve selected option from bullet button group
             String selectedOption = this.getRadioGroupOption();
-            //int selectedId = 1;
 
              //Retrieve Comments
             String comments = this.getComments();
-            //String comments = "NULL";
 
             //Create final message string
             StringBuilder amqpMessage = new StringBuilder();
-            amqpMessage.append(TweetId)
+            amqpMessage.append(tw_userID)
+                    .append(";")
+                    .append(TweetId)
                     .append(";")
                     .append(String.valueOf(selectedOption))
                     .append(";")
