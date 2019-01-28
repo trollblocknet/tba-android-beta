@@ -176,8 +176,6 @@ import static java.lang.System.exit;
                     noConnection = true;
                 }
             });
-
-
         }
 
     //RETRIEVE DATA FROM SHARE INTENT (TWITTER APP)
@@ -259,6 +257,7 @@ import static java.lang.System.exit;
                 Toast.makeText(this,getString(R.string.error_handle_share_action_no_connection), Toast.LENGTH_LONG).show();
             }
             else {
+                //CLOSE RABBITMQ CHANNEL CONNECTION!!
                 Toast.makeText(this, getString(R.string.error_handle_share_action_success), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(this, amqpMessage.toString(), Toast.LENGTH_SHORT).show();
             }
@@ -306,14 +305,16 @@ import static java.lang.System.exit;
                                         MessageProperties.PERSISTENT_TEXT_PLAIN,
                                         message.getBytes());
                                 Log.d("", "[s] " + message);
-
                                 ch.waitForConfirmsOrDie();
+                                ch.close();
+                                connection.close();
                             } catch (Exception e){
                                 Log.d("","[f] " + message);
                                 queue.putFirst(message);
                                 throw e;
                             }
                         }
+
                     } catch (InterruptedException e) {
                         break;
                     } catch (Exception e) {
@@ -324,6 +325,7 @@ import static java.lang.System.exit;
                             break;
                         }
                     }
+
                 }
             }
         });
