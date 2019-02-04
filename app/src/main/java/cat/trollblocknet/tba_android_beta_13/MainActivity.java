@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListsFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_lists);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FaqFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_faq);
         }
     }
 
