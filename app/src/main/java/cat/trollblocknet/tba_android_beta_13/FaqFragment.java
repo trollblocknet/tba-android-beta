@@ -7,22 +7,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class FaqFragment extends Fragment {
+    public WebView mWebView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_faq, container, false);
+        //return inflater.inflate(R.layout.fragment_faq, container, false);
 
-        // SHOW EMBEDED HTML
-            /*WebView wv = (WebView) findViewById(R.id.tw_WebView);
+        // EMBEDED HTML
+        View v=inflater.inflate(R.layout.fragment_faq, container, false);
+        mWebView = (WebView) v.findViewById(R.id.FAQ_WebView);
+        mWebView.loadUrl("http://trollblocknet.cat/app/faq.html");
 
-            final String mimeType = "text/html";
-            final String encoding = "UTF-8";
-            String html = "<blockquote class=\"twitter-tweet\" data-lang=\"en\"><p lang=\"es\" dir=\"ltr\">El clan Puyol 3.000.000.000€<br>Te lo pongo aquí por si lees que España nos roba.</p>&mdash; Te la han Colau (@DelIndepe) <a href=\"https://twitter.com/DelIndepe/status/1085855149497638913?ref_src=twsrc%5Etfw\">January 17, 2019</a></blockquote>\n" +
-                    "<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n";
+        // Enable Javascript
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
+        // Force links and redirects to open in the WebView instead of in a browser
+        mWebView.setWebViewClient(new WebViewClient());
 
-            wv.loadDataWithBaseURL("", html, mimeType, encoding, "");*/
+        return v;
     }
 }

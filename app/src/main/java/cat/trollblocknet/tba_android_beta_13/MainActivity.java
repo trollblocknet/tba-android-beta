@@ -1,5 +1,6 @@
 package cat.trollblocknet.tba_android_beta_13;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListsFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_lists);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FaqFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_faq);
         }
     }
 
@@ -77,6 +78,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            //myIntent.putExtra("key", value); //Optional parameters
+            MainActivity.this.startActivity(myIntent);
             return true;
         }
         else if (id == R.id.action_logout) {

@@ -11,4 +11,9 @@
         android:textSize="30sp"
         android:layout_centerInParent="true" />
 
+    <WebView
+        android:id="@+id/Academy_WebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>

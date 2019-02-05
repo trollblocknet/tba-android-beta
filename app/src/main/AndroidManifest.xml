@@ -11,7 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="cat.trollblocknet.tba_android_beta_13.HandleShareAction">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cat.trollblocknet.tba_android_beta_13.MainActivity" />
+        </activity>
+        <activity android:name=".HandleShareAction">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -21,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cat.trollblocknet.tba_android_beta_13.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,7 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
