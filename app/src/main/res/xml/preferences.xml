@@ -21,6 +21,7 @@
 
         <SwitchPreferenceCompat
             app:key="developerMode"
+            android:defaultValue="false"
             app:title="Mode desenvolupador"
             android:icon="@drawable/ic_settings_developermode"
             app:summary="ATENCIÓ! Activar el mode desenvolupador farà que els reports que enviïs no siguin afegits a cap llista"/>

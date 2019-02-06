@@ -2,9 +2,12 @@ package cat.trollblocknet.tba_android_beta_13;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +48,8 @@ import static java.lang.System.exit;
 
     public class HandleShareAction extends AppCompatActivity {
 
-        private static final String CLOUDAMQP_URL = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
+        private static final String CLOUDAMQP_URL_PROD = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
+        private static final String CLOUDAMQP_URL_DEV = "amqp://yxkzqgyk:bjOXyIPxlXWubMG8h_ALjWLh6gOZvmEB@antelope.rmq.cloudamqp.com/yxkzqgyk";
         private static final String tw_consumerKey = "UnFTQTeTx2tm98zQwG1jLhL3g";
         private static final String tw_consumerSecret = "HAR8c3Rpjo7ZEQzgAHPLY4lGb7XtjSwa1gfLd3SirjJOX12GUa";
 
@@ -246,7 +250,16 @@ import static java.lang.System.exit;
     }
 
     private void setupConnectionFactory() {
-        String uri = CLOUDAMQP_URL;
+
+        /*If developer mode is enabled in settings, we use the rabbitmq DEV queue*/
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(HandleShareAction.this);
+        boolean devMode = sharedPreferences.getBoolean("developerMode",false);
+
+        String uri;
+        if (devMode){uri = CLOUDAMQP_URL_DEV;}
+        else{uri = CLOUDAMQP_URL_PROD;}
+
         try {
             factory.setAutomaticRecoveryEnabled(false);
             factory.setUri(uri);
