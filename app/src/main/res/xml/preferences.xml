@@ -1,0 +1,42 @@
+<androidx.preference.PreferenceScreen
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:key="notifications_category"
+        app:title="Notificacions">
+
+        <SwitchPreferenceCompat
+            app:key="notifications"
+            app:title="Activar les notificacions"
+            android:icon="@drawable/ic_settings_notifications"
+            android:enabled="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="advanced_category"
+        app:title="Opcions Avançades">
+
+        <SwitchPreferenceCompat
+            app:key="developerMode"
+            app:title="Mode desenvolupador"
+            android:icon="@drawable/ic_settings_developermode"
+            app:summary="ATENCIÓ! Activar el mode desenvolupador farà que els reports que enviïs no siguin afegits a cap llista"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="help_category"
+        app:title="Help">
+
+        <Preference
+            app:key="feedback"
+            app:title="Enviar feedback"
+            app:summary="Reportar problemes tècnics o proposar noves funcionalitats"
+            android:enabled="false"/>
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

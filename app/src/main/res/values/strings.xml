@@ -28,7 +28,7 @@
     <string name="error_handle_share_action_no_connection">No s\'ha pogut reportar el tweet. Comprova la teva connexió a Internet i que el tweet no hagi sigut eliminat.</string>
     <string name="error_handle_share_action_success">Perfil reportat correctament</string>
     <string name="error_handle_share_action_title">Reportar Troll</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Configuració</string>
 
     <!-- Strings related to Settings -->
 
