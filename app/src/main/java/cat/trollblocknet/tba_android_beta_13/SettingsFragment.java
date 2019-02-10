@@ -15,6 +15,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         p.getBoolean("developerMode", false);
 
 //this effectively resets the myPrefKey to its default value
-        p.edit().remove("developerMode").apply();
+        //p.edit().remove("developerMode").apply();
     }
 }
