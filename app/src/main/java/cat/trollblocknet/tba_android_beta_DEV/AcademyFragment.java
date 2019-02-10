@@ -1,4 +1,4 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta_DEV;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class ReportFragment extends Fragment {
+public class AcademyFragment extends Fragment {
     public WebView mWebView;
 
     @Nullable
@@ -20,15 +20,15 @@ public class ReportFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_faq, container, false);
 
         // EMBEDED HTML
-        View v=inflater.inflate(R.layout.fragment_report, container, false);
-        mWebView = (WebView) v.findViewById(R.id.Report_WebView);
-        mWebView.loadUrl("http://trollblocknet.cat/app/reportar.html");
+        View v=inflater.inflate(R.layout.fragment_academy, container, false);
+        mWebView = (WebView) v.findViewById(R.id.Academy_WebView);
+        mWebView.loadUrl("http://trollblocknet.cat/app/bones-practiques.html");
 
         // Enable Javascript
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        // Force links and redirects to open in the WebView instead of in a browser
+        // Force links and redirects to open in the WebView instead of a browser
         mWebView.setWebViewClient(new WebViewClient());
 
         return v;
