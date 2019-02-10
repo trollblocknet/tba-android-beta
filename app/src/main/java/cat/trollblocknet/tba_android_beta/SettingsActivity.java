@@ -1,10 +1,9 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

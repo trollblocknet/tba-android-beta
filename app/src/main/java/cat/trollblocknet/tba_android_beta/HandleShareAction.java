@@ -1,4 +1,4 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta;
 
 import android.content.Context;
 import android.content.Intent;

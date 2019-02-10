@@ -1,4 +1,4 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,7 +11,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class ReportFragment extends Fragment {
+public class ListsFragment extends Fragment {
+
     public WebView mWebView;
 
     @Nullable
@@ -20,9 +21,9 @@ public class ReportFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_faq, container, false);
 
         // EMBEDED HTML
-        View v=inflater.inflate(R.layout.fragment_report, container, false);
-        mWebView = (WebView) v.findViewById(R.id.Report_WebView);
-        mWebView.loadUrl("http://trollblocknet.cat/app/reportar.html");
+        View v=inflater.inflate(R.layout.fragment_lists, container, false);
+        mWebView = (WebView) v.findViewById(R.id.Lists_WebView);
+        mWebView.loadUrl("http://trollblocknet.cat/app/llistats.html");
 
         // Enable Javascript
         WebSettings webSettings = mWebView.getSettings();

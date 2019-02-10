@@ -1,4 +1,4 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta;
 
 import java.util.ArrayList;
 import java.util.HashMap;

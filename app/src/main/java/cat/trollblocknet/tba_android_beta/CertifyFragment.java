@@ -1,4 +1,4 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ToolsFragment extends Fragment {
+public class CertifyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tools, container, false);
+        return inflater.inflate(R.layout.fragment_certify, container, false);
     }
 }

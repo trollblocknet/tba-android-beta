@@ -1,4 +1,4 @@
-package cat.trollblocknet.tba_android_beta_13;
+package cat.trollblocknet.tba_android_beta;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
