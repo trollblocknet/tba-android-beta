@@ -2,26 +2,19 @@ package cat.trollblocknet.tba_android_beta_13;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewDebug;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rabbitmq.client.Channel;
@@ -32,40 +25,19 @@ import com.rabbitmq.client.MessageProperties;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterApiClient;
-import com.twitter.sdk.android.core.TwitterApiException;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.internal.TwitterApi;
 import com.twitter.sdk.android.core.models.Tweet;
-import com.twitter.sdk.android.tweetui.BaseTweetView;
 import com.twitter.sdk.android.tweetui.CompactTweetView;
-import com.twitter.sdk.android.tweetui.TweetLinkClickListener;
 import com.twitter.sdk.android.tweetui.TweetUi;
 import com.twitter.sdk.android.tweetui.TweetUtils;
-import com.twitter.sdk.android.tweetui.TweetView;
-import com.twitter.sdk.android.tweetui.internal.TweetMediaUtils;
-import com.twitter.sdk.android.tweetui.internal.TweetMediaView;
 
 import org.apache.commons.io.FilenameUtils;
 
-import java.io.BufferedInputStream;
-import java.io.Console;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -76,7 +48,8 @@ import static java.lang.System.exit;
 
     public class HandleShareAction extends AppCompatActivity {
 
-        private static final String CLOUDAMQP_URL = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
+        private static final String CLOUDAMQP_URL_PROD = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
+        private static final String CLOUDAMQP_URL_DEV = "amqp://yxkzqgyk:bjOXyIPxlXWubMG8h_ALjWLh6gOZvmEB@antelope.rmq.cloudamqp.com/yxkzqgyk";
         private static final String tw_consumerKey = "UnFTQTeTx2tm98zQwG1jLhL3g";
         private static final String tw_consumerSecret = "HAR8c3Rpjo7ZEQzgAHPLY4lGb7XtjSwa1gfLd3SirjJOX12GUa";
 
@@ -277,7 +250,16 @@ import static java.lang.System.exit;
     }
 
     private void setupConnectionFactory() {
-        String uri = CLOUDAMQP_URL;
+
+        /*If developer mode is enabled in settings, we use the rabbitmq DEV queue*/
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(HandleShareAction.this);
+        boolean devMode = sharedPreferences.getBoolean("developerMode",false);
+
+        String uri;
+        if (devMode){uri = CLOUDAMQP_URL_DEV;}
+        else{uri = CLOUDAMQP_URL_PROD;}
+
         try {
             factory.setAutomaticRecoveryEnabled(false);
             factory.setUri(uri);
