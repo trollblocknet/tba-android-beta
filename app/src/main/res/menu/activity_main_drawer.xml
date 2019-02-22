@@ -11,7 +11,8 @@
         <item
             android:id="@+id/nav_lists"
             android:icon="@drawable/ic_menu_lists"
-            android:title="@string/nav_lists" />
+            android:title="@string/nav_lists"
+            android:enabled="false"/>
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_menu_report"
@@ -34,7 +35,8 @@
         <item
             android:id="@+id/nav_academy"
             android:icon="@drawable/ic_menu_academy"
-            android:title="@string/nav_academy" />
+            android:title="@string/nav_academy"
+            android:enabled="false" />
     </group>
 
     <item android:title="#FemXarxa">
@@ -42,11 +44,13 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/nav_share" />
+                android:title="@string/nav_share"
+                android:enabled="false"/>
             <item
                 android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_menu_contact"
-                android:title="@string/nav_contact" />
+                android:title="@string/nav_contact"
+                android:enabled="false"/>
         </menu>
     </item>
 

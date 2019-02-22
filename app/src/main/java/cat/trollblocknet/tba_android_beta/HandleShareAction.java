@@ -48,10 +48,10 @@ import static java.lang.System.exit;
 
     public class HandleShareAction extends AppCompatActivity {
 
-        private static final String CLOUDAMQP_URL_PROD = "amqp://mbsfxvbl:w_W5BK8P4iy_GQucoyYA63AlSzPOEjWM@raven.rmq.cloudamqp.com/mbsfxvbl";
-        private static final String CLOUDAMQP_URL_DEV = "amqp://yxkzqgyk:bjOXyIPxlXWubMG8h_ALjWLh6gOZvmEB@antelope.rmq.cloudamqp.com/yxkzqgyk";
-        private static final String tw_consumerKey = "UnFTQTeTx2tm98zQwG1jLhL3g";
-        private static final String tw_consumerSecret = "HAR8c3Rpjo7ZEQzgAHPLY4lGb7XtjSwa1gfLd3SirjJOX12GUa";
+        private String CLOUDAMQP_URL_PROD;
+        private String CLOUDAMQP_URL_DEV;
+        private String tw_consumerKey;
+        private String tw_consumerSecret;
 
         private String stringURL;
         private String TweetId;
@@ -70,6 +70,13 @@ import static java.lang.System.exit;
             super.onCreate(savedInstanceState);
 
             setContentView(R.layout.activity_handle_share_action);
+
+            // IMPORT GLOBAL VALUES
+
+            CLOUDAMQP_URL_PROD = getString(R.string.CLOUDAMQP_URL_PROD);
+            CLOUDAMQP_URL_DEV = getString(R.string.CLOUDAMQP_URL_DEV);
+            tw_consumerKey = getString(R.string.tw_consumerKey);
+            tw_consumerSecret = getString(R.string.tw_consumerSecret);
 
             //INFLATE ACTION BAR
             this.getSupportActionBar().setTitle(R.string.error_handle_share_action_title);

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">#TrollBlockNet App</string>
-    <string name="app_version">1.3</string>
+    <string name="app_version">1.4</string>
     <string name="action_logout">Sortir</string>
     <string name="action_settings">Configuració</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">\#TrollBlockNet App </string>
-    <string name="nav_header_subtitle">(Versió Beta 1.3)</string>
+    <string name="nav_header_subtitle">(Versió Beta 1.4)</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_lists">Llistats</string>
     <string name="nav_report">Reportar Trolls</string>
