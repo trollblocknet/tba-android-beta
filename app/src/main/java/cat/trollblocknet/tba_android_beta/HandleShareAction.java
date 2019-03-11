@@ -38,6 +38,10 @@ import org.apache.commons.io.FilenameUtils;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -55,6 +59,8 @@ import static java.lang.System.exit;
 
         private String stringURL;
         private String TweetId;
+        private String screen_name;
+
 
         private RadioGroup rg;
         private RadioButton rb;
@@ -147,6 +153,7 @@ import static java.lang.System.exit;
                     //myLayout.setClickable(false);
                     myLayout.addView(new CompactTweetView(HandleShareAction.this, result.data));
                     tw_userID = result.data.user.getId();
+                    screen_name = result.data.user.screenName;
                 }
 
                 @Override
@@ -221,7 +228,11 @@ import static java.lang.System.exit;
 
             //Create final message string
             StringBuilder amqpMessage = new StringBuilder();
-            amqpMessage.append(tw_userID)
+            amqpMessage.append(getTimestamp())
+                    .append(";")
+                    .append(screen_name)
+                    .append(";")
+                    .append(tw_userID)
                     .append(";")
                     .append(TweetId)
                     .append(";")
@@ -364,4 +375,13 @@ import static java.lang.System.exit;
     public String getComments(){
         return mEdit.getText().toString();
     }
-}
+
+    public String getTimestamp(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'_'HH:mm:ss", Locale.US);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return sdf.format(new Date());
+        }
+
+    }
+
